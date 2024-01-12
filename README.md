@@ -1,10 +1,4 @@
-# coshion
-
-Current feature:
-- OTP
-- List Products
-- Bottom Navigation Bar
-- Detailed Product
+## This is the backend API for Coshion. 
 
 ### Team Member
 - [ ] Galih Putra Windawan             - Hustler
@@ -12,5 +6,5 @@ Current feature:
 - [ ] Hidayat Taufiqur Rahmah Achmad   - Hacker
 - [ ] Moza Sajidah Putri Al Muzaffar   - Hipster
 
-## Latest Progress - Coshion Frontend
-![alt text](https://github.com/LukmanNH/coshion/blob/FE-Coshion/image-readme/pengerjaan%20terakhir%20-%20hackfest%20-%20submission%20stage%202.png?raw=true)
+## Latest Progress - Coshion Backend 
+![alt text](screenshot.png)
