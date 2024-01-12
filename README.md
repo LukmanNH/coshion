@@ -12,5 +12,5 @@ Current feature:
 - [ ] Hidayat Taufiqur Rahmah Achmad   - Hacker
 - [ ] Moza Sajidah Putri Al Muzaffar   - Hipster
 
-## Latest Progress
+## Latest Progress - Coshion Frontend
 ![alt text](https://github.com/LukmanNH/coshion/blob/FE-Coshion/image-readme/pengerjaan%20terakhir%20-%20hackfest%20-%20submission%20stage%202.png?raw=true)
