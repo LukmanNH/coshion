@@ -77,3 +77,12 @@ func RespError(c echo.Context, err error) error {
 	})
 }
 
+func StructToMap(obj interface{}) map[string]interface{} {
+	var mapData map[string]interface{}
+	jsonData, err := json.Marshal(obj)
+	if err != nil {
+		return mapData
+	}
+	json.Unmarshal(jsonData, &mapData)
+	return mapData
+}

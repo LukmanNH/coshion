@@ -1,52 +1,49 @@
 package models
 
+import "coshion/bin/pkg/helpers"
+
+// type Addr struct {
+//   Deskripsi string `json:"deskripsi"`
+//   Jalan     string `json:"jalan"`
+//   Kecamatan string `json:"kecamatan"`
+//   Kota      string `json:"kota"`
+//   KodePos   string `json:"kodePos"`
+// }
+
 type User struct {
-	Id           string `json:"id,omitempty" bson:"_id,omitempty"`
-	Username     string `json:"username" bson:"username" validate:"required"`
-	Password     string `json:"password" bson:"password" validate:"required"`
-	Email        string `json:"email" bson:"email" validate:"required"`
-	FullName     string `json:"fullName" bson:"fullName" validate:"required"`
-	MobileNumber string `json:"mobileNumber" bson:"mobileNumber" validate:"required"`
-	Status       string `json:"status,omitempty" bson:"status,omitempty"`
+	Id           string `json:"id,omitempty" firestore:"id,omitempty"`
+	Email        string `json:"email" firestore:"email"`
+	FullName     string `json:"fullName" firestore:"fullName"`
+	Gender       string `json:"gender" firestore:"gender"`
+	MobileNumber string `json:"mobileNumber" firestore:"mobileNumber"`
+	Address      string `json:"address" firestore:"address"`
 }
 
 type UpsertUser struct {
-	Username     string `json:"username,omitempty" bson:"username,omitempty"`
-	Password     string `json:"password,omitempty" bson:"password,omitempty"`
-	Email        string `json:"email,omitempty" bson:"email,omitempty"`
-	FullName     string `json:"fullName,omitempty" bson:"fullName,omitempty"`
-	MobileNumber string `json:"mobileNumber,omitempty" bson:"mobileNumber,omitempty"`
-	Status       string `json:"status,omitempty" bson:"status,omitempty"`
+	Email        string `json:"email,omitempty" firestore:"email,omitempty"`
+	FullName     string `json:"fullName,omitempty" firestore:"fullName,omitempty"`
+	MobileNumber string `json:"mobileNumber,omitempty" firestore:"mobileNumber,omitempty"`
+	Address      string `json:"address" firestore:"address,omitempty"`
+	Gender       string `json:"gender" firestore:"gender,omitempty"`
 }
 
-func (u User) UpsertUser() UpsertUser {
-	return UpsertUser{
-		Username:     u.Username,
-		Password:     u.Password,
+func (u User) UpsertUser() map[string]interface{} {
+	user := UpsertUser{
 		Email:        u.Email,
 		FullName:     u.FullName,
 		MobileNumber: u.MobileNumber,
-		Status:       u.Status,
+		Address:      u.Address,
+		Gender:       u.Gender,
 	}
-}
 
-type LoginRequest struct {
-	Username string `json:"username" validate:"required"`
-	Password string `json:"password" validate:"required"`
-}
-
-type LoginResponse struct {
-	Username    string `json:"username"`
-	Email       string `json:"email"`
-	Id          string `json:"id"`
-	AccessToken string `json:"accessToken"`
+	return helpers.StructToMap(user)
 }
 
 type GetUserResponse struct {
 	Id           string `json:"id,omitempty"`
-	Username     string `json:"username"`
 	Email        string `json:"email"`
 	FullName     string `json:"fullName"`
+	Gender       string `json:"gender"`
 	MobileNumber string `json:"mobileNumber"`
-	Status       string `json:"status,omitempty"`
+	Address      string `json:"address"`
 }

@@ -114,4 +114,3 @@ func (l Log) sendLogstash(msg string) {
 		println(err.Error())
 	}
 }
-

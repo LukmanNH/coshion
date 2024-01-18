@@ -85,4 +85,3 @@ func (l *Logstash) Writeln(message string) error {
 	}
 	return err
 }
-

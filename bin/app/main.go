@@ -11,17 +11,18 @@ import (
 	"os/signal"
 	"time"
 
-	// userHandler "coshion/bin/modules/user/handlers"
-	// userRepoCommands "coshion/bin/modules/user/repositories/commands" */
-	// userRepoQueries "coshion/bin/modules/user/repositories/queries"
-	// userUsecase "coshion/bin/modules/user/usecases"
+	userHandler "coshion/bin/modules/user/handlers"
+	userRepoCommands "coshion/bin/modules/user/repositories/commands"
+	userRepoQueries "coshion/bin/modules/user/repositories/queries"
+	userUsecase "coshion/bin/modules/user/usecases"
 
-	// inventoryHandler "coshion/bin/modules/inventory/handlers"
-	// inventoryRepoCommands "coshion/bin/modules/inventory/repositories/commands"
-	// inventoryRepoQueries "coshion/bin/modules/inventory/repositories/queries"
-	// inventoryUsecase "coshion/bin/modules/inventory/usecases"
+	productHandler "coshion/bin/modules/product/handlers"
+	productRepoCommands "coshion/bin/modules/product/repositories/commands"
+	productRepoQueries "coshion/bin/modules/product/repositories/queries"
+	productUsecase "coshion/bin/modules/product/usecases"
 
 	"coshion/bin/config"
+	"coshion/bin/pkg/databases/firestore"
 	"coshion/bin/pkg/helpers"
 
 	// "coshion/bin/pkg/validator"
@@ -33,8 +34,10 @@ import (
 )
 
 func main() {
+	firestore.InitConnection()
+
 	// Init Redis Connection
-/* 	redis.InitConnection(config.GetConfig().RedisDB, config.GetConfig().RedisHost, config.GetConfig().RedisPort) */
+	/* 	redis.InitConnection(config.GetConfig().RedisDB, config.GetConfig().RedisHost, config.GetConfig().RedisPort) */
 
 	log.Init()
 
@@ -99,22 +102,19 @@ func setHttp(e *echo.Echo) {
 
 	// redisClient := redis.GetClient()
 
-	// userQueryMongodbRepo := userRepoQueries.NewQueryMongodbRepository(mongodb.NewMongoDBLogger(mongodb.GetSlaveConn(), mongodb.GetSlaveDBName(), log.GetLogger()))
-	// userCommandMongodbRepo := userRepoCommands.NewCommandMongodbRepository(mongodb.NewMongoDBLogger(mongodb.GetMasterConn(), mongodb.GetMasterDBName(), log.GetLogger()))
-	//
-	// userQueryUsecase := userUsecase.NewQueryUsecase(userQueryMongodbRepo, redisClient)
-	// userCommandUsecase := userUsecase.NewCommandUsecase(userQueryMongodbRepo, userCommandMongodbRepo, redisClient)
-	//
-	// // set module
-	// userHandler.InituserHttpHandler(e, userQueryUsecase, userCommandUsecase)
+	userQueryFirestoreRepo := userRepoQueries.NewQueryFirestoreRepository(firestore.GetFirestoreConn(), firestore.GetFirebaseAuthConn())
+	userCommandFirestoreRepo := userRepoCommands.NewyFirestoreCommandRepository(firestore.GetFirestoreConn(), firestore.GetFirebaseAuthConn())
 
-	// inventoryQueryMongodbRepo := inventoryRepoQueries.NewQueryMongodbRepository(mongodb.NewMongoDBLogger(mongodb.GetSlaveConn(), mongodb.GetSlaveDBName(), log.GetLogger()))
-	// inventoryCommandMongodbRepo := inventoryRepoCommands.NewCommandMongodbRepository(mongodb.NewMongoDBLogger(mongodb.GetMasterConn(), mongodb.GetMasterDBName(), log.GetLogger()))
-	//
-	// inventoryQueryUsecase := inventoryUsecase.NewQueryUsecase(inventoryQueryMongodbRepo, redisClient)
-	// inventoryCommandUsecase := inventoryUsecase.NewCommandUsecase(inventoryQueryMongodbRepo, inventoryCommandMongodbRepo, redisClient)
-	//
+	userQueryUsecase := userUsecase.NewQueryUsecase(userQueryFirestoreRepo)
+	userCommandUsecase := userUsecase.NewCommandUsecase(userQueryFirestoreRepo, userCommandFirestoreRepo)
 	// // set module
-	// inventoryHandler.InitinventoryHttpHandler(e, inventoryQueryUsecase, inventoryCommandUsecase)
+	userHandler.InituserHttpHandler(e, userQueryUsecase, userCommandUsecase)
+
+	productQueryFirestoreRepo := productRepoQueries.NewQueryFirestoreRepository(firestore.GetFirestoreConn(), firestore.GetFirebaseAuthConn())
+	productCommandFirestoreRepo := productRepoCommands.NewyFirestoreCommandRepository(firestore.GetFirestoreConn(), firestore.GetFirebaseAuthConn())
+
+	productQueryUsecase := productUsecase.NewQueryUsecase(productQueryFirestoreRepo)
+	productCommandUsecase := productUsecase.NewCommandUsecase(productQueryFirestoreRepo, productCommandFirestoreRepo)
+	// set module
+	productHandler.InitproductHttpHandler(e, productQueryUsecase, productCommandUsecase)
 }
-

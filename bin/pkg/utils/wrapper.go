@@ -14,4 +14,3 @@ type BaseWrapperModel struct {
 	Code    int         `json:"code"`
 	Meta    interface{} `json:"meta,omitempty"`
 }
-

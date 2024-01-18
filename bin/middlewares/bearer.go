@@ -1,10 +1,8 @@
 package middlewares
 
 import (
-	"encoding/json"
 	"strings"
 
-	"coshion/bin/config"
 	"coshion/bin/pkg/errors"
 	"coshion/bin/pkg/helpers"
 	"coshion/bin/pkg/token"
@@ -19,17 +17,13 @@ func VerifyBearer(next echo.HandlerFunc) echo.HandlerFunc {
 		if len(tokenString) == 0 {
 			return helpers.RespError(c, errors.UnauthorizedError("Invalid token!"))
 		}
-		publicKey := config.GetConfig().PublicKey
-		parsedToken := <-token.Validate(c.Request().Context(), publicKey, tokenString)
-		if parsedToken.Error != nil {
-			return helpers.RespError(c, errors.UnauthorizedError(parsedToken.Error.Error()))
+
+		decodedToken, err := token.Validate(c.Request().Context(), tokenString)
+		if err != nil {
+			return helpers.RespError(c, errors.UnauthorizedError(err.Error()))
 		}
-		data, _ := json.Marshal(parsedToken.Data)
-		jsonData := []byte(data)
-		var claim token.Claim
-		json.Unmarshal(jsonData, &claim)
-		c.Set("userId", claim.UserId)
+
+		c.Set("decodedToken", decodedToken)
 		return next(c)
 	}
 }
-

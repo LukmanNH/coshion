@@ -20,4 +20,3 @@ func VerifyBasicAuth(next echo.HandlerFunc) echo.HandlerFunc {
 		return helpers.RespError(c, errors.UnauthorizedError("invalid username or password"))
 	}
 }
-
