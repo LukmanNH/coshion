@@ -74,7 +74,8 @@ Here are some screenshots from the Coshion project to give you a preview of the 
 
 ### Splash Screen - [Splash]
 
-![Splash Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/splash_screen.jpg)
+<!-- ![Splash Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/splash_screen.jpg) -->
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/splash_screen.jpg" alt="Screen 1" width="300"/>
 
 ### On Boarding Screen - [Consist of 3 steps on boarding]
 
