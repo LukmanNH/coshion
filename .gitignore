@@ -6,5 +6,5 @@ main
 .env
 *.out
 coverages/index.html
-google-services.json 
+service-account.json 
  
