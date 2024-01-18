@@ -1,9 +1,29 @@
+import 'dart:math';
+
+import 'package:country_picker/country_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
+  RxBool isLoading = false.obs;
+  TextEditingController phoneController = TextEditingController();
 
-  final count = 0.obs;
+  Rx<Country> country = Country(
+    phoneCode: "62",
+    countryCode: "ID",
+    e164Sc: 0,
+    geographic: true,
+    level: 1,
+    name: "Indonesia",
+    example: "Indonesia",
+    displayName: "Indonesia",
+    displayNameNoCountryCode: "ID",
+    e164Key: "",
+  ).obs;
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +39,38 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> signIn() async {
+    isLoading.value = true;
+    try {
+      isLoading.value = true;
+      var trySignIn = auth.verifyPhoneNumber(
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
+        verificationFailed: (FirebaseAuthException e) {
+          Get.snackbar(
+            "Oops..",
+            e.message.toString(),
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        },
+        codeSent: (String verificationId, int? forceResendingToken) {
+          Get.toNamed(
+            "/otpscreen",
+            arguments: [phoneController.value.text, verificationId],
+          );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+        phoneNumber: "+${country.value.phoneCode}${phoneController.value.text}",
+      );
+      print(trySignIn);
+      isLoading.value = false;
+    } on FirebaseAuthException catch (e) {
+      print(e.message.toString());
+      Get.snackbar(
+        "Error Login",
+        e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      isLoading.value = false;
+    }
+  }
 }

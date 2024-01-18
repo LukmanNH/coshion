@@ -9,12 +9,15 @@ class PageIndexController extends GetxController {
     pageIndex.value = i;
     switch (i) {
       case 1:
-        Get.offAllNamed(Routes.CART);
+        Get.offAllNamed(Routes.ORDER);
         break;
       case 2:
-        Get.offAllNamed(Routes.ON_PROGRESS);
+        Get.offAllNamed(Routes.EXPLORE);
         break;
       case 3:
+        Get.offAllNamed(Routes.BOOKMARK);
+        break;
+      case 4:
         Get.offAllNamed(Routes.PROFILE);
         break;
       default:

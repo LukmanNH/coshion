@@ -16,6 +16,15 @@ dependencies:
   firebase_core: ^2.24.2
   otp_text_field: ^1.1.3
   firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
+  shared_preferences: ^2.2.2
+  onboarding: ^3.1.0
+  google_fonts: ^6.1.0
+  country_picker: ^2.0.23
+  flutter_svg: ^2.0.9
+  pinput: ^3.0.1
+  flutter_staggered_grid_view: ^0.7.0
+  # cloud_firestore: ^4.13.5
   flutter:
     sdk: flutter
 
@@ -29,4 +38,19 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/
+
+  fonts:
+    - family: Satoshi
+      fonts:
+        - asset: assets/fonts/Satoshi-Black.otf
+        - asset: assets/fonts/Satoshi-BlackItalic.otf
+        - asset: assets/fonts/Satoshi-Bold.otf
+        - asset: assets/fonts/Satoshi-BoldItalic.otf
+        - asset: assets/fonts/Satoshi-Italic.otf
+        - asset: assets/fonts/Satoshi-Light.otf
+        - asset: assets/fonts/Satoshi-LightItalic.otf
+        - asset: assets/fonts/Satoshi-Medium.otf
+        - asset: assets/fonts/Satoshi-MediumItalic.otf
+        - asset: assets/fonts/Satoshi-Regular.otf
+
   uses-material-design: true

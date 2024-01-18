@@ -1,4 +1,5 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:coshion/app/constant/color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -22,16 +23,34 @@ class OnProgressView extends GetView<OnProgressController> {
           style: TextStyle(fontSize: 20),
         ),
       ),
-      bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.react,
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: colorPrimary,
+        unselectedItemColor: colorSecondary,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
         items: const [
-          TabItem(icon: Icons.home, title: "Home"),
-          TabItem(icon: Icons.shopping_cart, title: "Cart"),
-          TabItem(icon: Icons.pregnant_woman, title: "On Progress"),
-          TabItem(icon: Icons.person, title: "Profile"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.newspaper),
+            label: 'Order',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
-        initialActiveIndex: pageC.pageIndex.value,
-        onTap: (int i) => pageC.changePage(i),
+        currentIndex: pageC.pageIndex.value,
+        onTap: (int i) {
+          pageC.changePage(i);
+        },
       ),
     );
   }

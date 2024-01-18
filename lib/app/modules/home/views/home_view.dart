@@ -1,7 +1,11 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:coshion/app/constant/color.dart';
+import 'package:coshion/app/controllers/auth_controller.dart';
 import 'package:coshion/app/controllers/outfit_controller.dart';
+import 'package:coshion/app/modules/detail_outfit/views/detail_outfit_view.dart';
+import 'package:coshion/app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:get/get.dart';
 
@@ -11,161 +15,138 @@ import '../../../controllers/page_index_controller.dart';
 class HomeView extends GetView<HomeController> {
   final pageC = Get.find<PageIndexController>();
   final outfitService = Get.find<OutfitController>();
+  final authUser = Get.find<AuthController>();
 
-  var itemName = [
-    "Adat Betawi",
-    "Long Sleeve",
-    "Canvas Jacket",
-    "Hoodie",
-    "Dress",
-    "Jeans"
+  final List<String> categoryName = [
+    "All",
+    "Casual",
+    "Chic",
+    "Sporty",
+    "Streetwear"
   ];
   @override
   Widget build(BuildContext context) {
+    print(authUser.idToken);
     return Scaffold(
+      backgroundColor: const Color(0xFFF7FBFA),
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                child: Text(
-                  'Search',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: TEXT_PRIMARY,
-                    fontFamily: 'ro',
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          print(authUser.idToken);
+                        },
+                        icon: const Icon(Icons.location_pin),
+                        color: colorPrimary,
+                        iconSize: 20,
+                      ),
+                      Text(
+                        "${authUser.firebaseUser.value?.phoneNumber}, Indonesia",
+                        style: textStylePrimary,
+                      ),
+                    ],
                   ),
-                ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.notifications),
+                    iconSize: 28,
+                    color: colorPrimary,
+                  ),
+                ],
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              sliver: SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: 'Search Anything...',
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Image.asset("assets/images/home_showcase.png", width: 400),
+                  Image.asset("assets/images/home_showcase.png", width: 400),
+                  Image.asset("assets/images/home_showcase.png", width: 400),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  for (var category in categoryName)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        category,
+                        style: textStylePrimary.copyWith(fontSize: 16),
                       ),
                     ),
-                    const SizedBox(height: 15),
-                  ],
-                ),
+                ],
               ),
             ),
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-              sliver: SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    Outfit outfit = outfitService.outfit[index];
-                    return GestureDetector(
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 20.0),
+                child: MasonryGridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 30,
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return InkWell(
                       onTap: () {
-                        Get.toNamed("/detail-outfit/${index + 1}");
+                        Get.to(DetailOutfitView());
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color.fromARGB(255, 185, 185, 185),
-                              offset: Offset(1, 1),
-                              blurRadius: 15,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Column(
-                          children: [
-                            const SizedBox(height: 10),
-                            const Padding(
-                              padding: EdgeInsets.only(right: 14),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [Icon(Icons.favorite_border)],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 15,
-                              ),
-                              child: Container(
-                                height: 120,
-                                width: 120,
-                                child: FadeInImage(
-                                  placeholder: const AssetImage(
-                                      "assets/images/loading.gif"),
-                                  image: NetworkImage(outfit.gambar),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Text(
-                              outfit.nama,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                color: APP_SECONDARY,
-                                fontFamily: 'ro',
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text(
-                                  outfit.harga.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.grey,
-                                    fontFamily: 'ro',
-                                  ),
-                                ),
-                                const Row(
-                                  children: [
-                                    Icon(Icons.star,
-                                        color: APP_PRIMARY, size: 15),
-                                    Text(
-                                      '4.2',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.grey,
-                                        fontFamily: 'ro',
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                      child: ProductCard(
+                          isLiked: index % 2 == 0 ? true : false,
+                          image:
+                              "assets/images/product_example_${index + 1}.png"),
                     );
                   },
-                  childCount: outfitService.outfit.length,
-                ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisExtent: 270,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
                 ),
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: ConvexAppBar(
-        style: TabStyle.react,
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: colorPrimary,
+        unselectedItemColor: colorSecondary,
+        showUnselectedLabels: true,
+        showSelectedLabels: true,
+        type: BottomNavigationBarType.fixed,
         items: const [
-          TabItem(icon: Icons.home, title: "Home"),
-          TabItem(icon: Icons.shopping_cart, title: "Cart"),
-          TabItem(icon: Icons.pregnant_woman, title: "On Progress"),
-          TabItem(icon: Icons.person, title: "Profile"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_basket),
+            label: 'Order',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Bookmark',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Profile',
+          ),
         ],
-        initialActiveIndex: pageC.pageIndex.value,
-        onTap: (int i) => pageC.changePage(i),
+        currentIndex: pageC.pageIndex.value,
+        onTap: (int i) {
+          pageC.changePage(i);
+        },
       ),
     );
   }

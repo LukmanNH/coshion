@@ -1,65 +1,109 @@
-import 'package:coshion/app/modules/home/views/home_view.dart';
+import 'package:coshion/app/constant/color.dart';
 import 'package:coshion/app/modules/otpscreen/views/otpscreen_view.dart';
+import 'package:coshion/app/routes/app_pages.dart';
+import 'package:coshion/app/widgets/customButton.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:phone_form_field/phone_form_field.dart';
 
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
-  TextEditingController phoneController = TextEditingController();
+  var loginController = Get.put(LoginController());
+
+  final selectedCountry = Get.put(LoginController().country);
+  final isLoading = Get.put(LoginController().isLoading);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Sign In",
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Phone Number',
-                  hintText: "+62----",
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: (SvgPicture.asset("assets/icons/arrow_left.svg")),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        centerTitle: true,
+        title: Text(
+          "Sign Up to Coshion",
+          style: textStylePrimaryOnBoard,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "Enter your phone number, and you will receive a 6 digit OTP code",
+              style: textStyleSecondaryOnBoard,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            const SizedBox(height: 20),
+            TextFormField(
+              controller: controller.phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                hintText: "Enter phone Number",
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+                prefixIcon: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Obx(
+                    () => InkWell(
+                      onTap: () {
+                        showCountryPicker(
+                          context: context,
+                          countryListTheme: const CountryListThemeData(
+                            bottomSheetHeight: 520,
+                          ),
+                          onSelect: (value) {
+                            selectedCountry.value = value;
+                          },
+                        );
+                      },
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: selectedCountry.value.flagEmoji,
+                              style: const TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                            const WidgetSpan(
+                              child: Icon(Icons.keyboard_arrow_down),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                controller: phoneController,
               ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  FirebaseAuth.instance.verifyPhoneNumber(
-                    verificationCompleted: (PhoneAuthCredential credentials) {},
-                    verificationFailed: (FirebaseAuthException ex) {},
-                    codeSent: (String verificationId, int? resendToken) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => OtpscreenView(
-                            verificationId: verificationId,
-                          ),
-                        ),
-                      );
-                    },
-                    codeAutoRetrievalTimeout: (String verificationId) {},
-                    phoneNumber: phoneController.text.toString(),
-                  );
-                },
-                child: const Text("Submit"),
-              )
-            ],
-          ),
+            ),
+            const SizedBox(height: 24),
+            Obx(
+              () => SizedBox(
+                width: double.infinity,
+                child: CustomButton(
+                  text: isLoading.value ? "Please wait..." : "Continue",
+                  isPrimary: true,
+                  onPressed: () => controller.signIn(),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

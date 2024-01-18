@@ -11,6 +11,10 @@ abstract class Routes {
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const DETAIL_OUTFIT = _Paths.DETAIL_OUTFIT;
   static const OTPSCREEN = _Paths.OTPSCREEN;
+  static const ON_BOARDING = _Paths.ON_BOARDING;
+  static const ORDER = _Paths.ORDER;
+  static const EXPLORE = _Paths.EXPLORE;
+  static const BOOKMARK = _Paths.BOOKMARK;
 }
 
 abstract class _Paths {
@@ -21,6 +25,10 @@ abstract class _Paths {
   static const ON_PROGRESS = '/on-progress';
   static const PROFILE = '/profile';
   static const SPLASH_SCREEN = '/splash-screen';
-  static const DETAIL_OUTFIT = '/detail-outfit/:id';
+  static const DETAIL_OUTFIT = '/detail-outfit';
   static const OTPSCREEN = '/otpscreen';
+  static const ON_BOARDING = '/on-boarding';
+  static const ORDER = '/order';
+  static const EXPLORE = '/explore';
+  static const BOOKMARK = '/bookmark';
 }
