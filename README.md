@@ -1,16 +1,16 @@
 # coshion
 
-A new Flutter project.
+Current feature:
+- OTP
+- List Products
+- Bottom Navigation Bar
+- Detailed Product
 
-## Getting Started
+### Team Member
+- [ ] Galih Putra Windawan             - Hustler
+- [ ] Lukman Nur Hakim                 - Hacker
+- [ ] Hidayat Taufiqur Rahmah Achmad   - Hacker
+- [ ] Moza Sajidah Putri Al Muzaffar   - Hipster
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Latest Progress - Coshion Frontend
+![alt text](https://github.com/LukmanNH/coshion/blob/FE-Coshion/image-readme/pengerjaan%20terakhir%20-%20hackfest%20-%20submission%20stage%202.png?raw=true)
