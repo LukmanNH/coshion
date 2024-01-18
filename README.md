@@ -74,37 +74,36 @@ Here are some screenshots from the Coshion project to give you a preview of the 
 
 ### Splash Screen - [Splash]
 
-<!-- ![Splash Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/splash_screen.jpg) -->
-<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/splash_screen.jpg" alt="Screen 1" width="300"/>
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/splash_screen.jpg" alt="Splash Screen" width="300"/>
 
 ### On Boarding Screen - [Consist of 3 steps on boarding]
 
-![Screen 2](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/on_boarding_screen.jpg)
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/on_boarding_screen.jpg" alt="On Boarding Screen" width="300"/>
 
 ### Auth Screen - [Sign up/Log in user]
 
-![Auth Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/auth_screen.jpg)
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/auth_screen.jpg" alt="Auth Screen" width="300"/>
 
 ### OTP Screen - [Verify OTP Screen sended via SMS]
 
-![OTP Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/verify_otp_screen.jpg)
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/verify_otp_screen.jpg" alt="OTP Screen" width="300"/>
 
 ### Home Screen
 
-![Home Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/home_screen.jpg)
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/home_screen.jpg" alt="Home Screen" width="300"/>
 
 ### Order Screen
 
-![Order Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/order_screen.jpg)
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/order_screen.jpg" alt="Order Screen" width="300"/>
 
 ### On Book Screen
 
-![On Book Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/order_on_book_screen.jpg)
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/order_on_book_screen.jpg" alt="On Book Screen" width="300"/>
 
 ### Explore Screen
 
-![Explore Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/explore_screen.jpg)
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/explore_screen.jpg" alt="Explore Screen" width="300"/>
 
 ### Profile Screen
 
-![Profile Screen](https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/profile_screen.jpg)
+<img src="https://github.com/LukmanNH/coshion/blob/FE-Coshion/Coshion%20Apps%20Screenshoot/profile_screen.jpg" alt="Profile Screen" width="300"/>
